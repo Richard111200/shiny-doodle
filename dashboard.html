@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 50px;
+        }
+
+        .dashboard-container {
+            padding: 20px;
+        }
+
+        .search-add-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            width: 300px;
+        }
+
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+
+        .add-button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .record-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        .record-table th,
+        .record-table td {
+            padding: 25px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 25px;
+        }
+
+        .record-table th {
+            background-color: #333;
+            color: white;
+        }
+
+        .record-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .record-table button {
+            padding: 5px 10px;
+            background-color: #7a29fc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .record-table button.delete {
+            background-color: #dc3545;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-form input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal-form button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>Dashboard</h1>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="search-add-container">
+            <div class="search-bar">
+                <input type="text" placeholder="Search records..." id="search-input">
+                <button type="button" onclick="searchRecords()">Search</button>
+            </div>
+            <button class="add-button" onclick="openModal()">+ Add Record</button>
+        </div>
+
+        <table class="record-table">
+            <thead>
+                <tr>
+                    <th>ID Number</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="records-body">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="addRecordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add New Record</h2>
+            <form id="addRecordForm" class="modal-form" onsubmit="addRecord(event)">
+                <input type="text" id="record-name" placeholder="Name" required>
+                <input type="email" id="record-email" placeholder="Email" required>
+                <button type="submit">Add Record</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function searchRecords() {
+            let input = document.getElementById("search-input").value.toLowerCase();
+            let records = document.querySelectorAll("#records-body tr");
+
+            records.forEach(record => {
+                let recordText = record.innerText.toLowerCase();
+                if (recordText.includes(input)) {
+                    record.style.display = "";
+                } else {
+                    record.style.display = "none";
+                }
+            });
+        }
+
+        function openModal() {
+            document.getElementById("addRecordModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("addRecordModal").style.display = "none";
+        }
+
+        function addRecord(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("record-name").value;
+            let email = document.getElementById("record-email").value;
+
+            let tableBody = document.getElementById("records-body");
+
+            let newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>${tableBody.rows.length + 1}</td>
+                <td>${name}</td>
+                <td>${email}</td>
+                <td>
+                    <button>Edit</button>
+                    <button class="delete" onclick="deleteRecord(this)">Delete</button>
+                </td>
+            `;
+            tableBody.appendChild(newRow);
+
+            closeModal();
+            document.getElementById("addRecordForm").reset();
+        }
+
+        function deleteRecord(button) {
+            const row = button.parentElement.parentElement;
+            row.remove();
+        }
+    </script>
+</body>
+
+</html>

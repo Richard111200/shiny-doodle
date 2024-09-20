@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<style>
+    body {
+        background-image: url("C:/Users/Justine/Pictures/copy.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrapper {
+        width: 400px;
+        height: 450px;
+        text-align: center;
+        border: 1px solid rgb(241, 241, 241);
+        border-radius: 12px;
+        padding: 10px 20px;
+        background: transparent;
+        backdrop-filter: blur(6px);
+        box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+        font-size: 30px;
+        color: #160505;
+    }
+
+    .input-field {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .input-field input {
+        border-radius: 10px;
+        background: transparent;
+        margin: 15px;
+        border: 2px solid rgb(255, 255, 255);
+        width: 280px;
+        height: 40px;
+        padding: 10px 20px;
+        backdrop-filter: blur(15px);
+        color: white;
+    }
+
+    .input-field i {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+        color: rgb(14, 4, 4);
+    }
+
+    input::placeholder {
+        color: rgb(12, 4, 4);
+    }
+
+    .input-field input:focus::placeholder {
+        transform: translate(-100%);
+        transition: transform 0.2s ease-in-out;
+        font-size: 14px;
+    }
+
+    a.forgot {
+        text-decoration: none;
+        position: relative;
+        color: rgba(24, 8, 8, 0.712);
+    }
+
+    a.forgot:hover {
+        text-decoration: underline;
+        color: #160909fd;
+    }
+
+    a.sign-up {
+        text-decoration: none;
+        color: rgba(15, 4, 4, 0.712);
+    }
+
+    a.sign-up:hover {
+        text-decoration: underline;
+        color: #160505fd;
+    }
+
+    .login {
+        background: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-weight: 600;
+        border-radius: 25px;
+        width: 200px;
+        height: 40px;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <h2>Welcome</h2>
+        <form id="login-form">
+            <div class="input-field">
+                <input type="email" id="email" placeholder="Username" required>
+                <i class="bx bxs-user"></i>
+            </div>
+            <div class="input-field">
+                <input type="password" id="password" placeholder="Password" required>
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+            <a href="C:\Users\Justine\Desktop\New folder\forgot_password.html" class="forgot">Forgot password?</a>
+            <br><br>
+            <button type="submit" class="login">Login</button>
+            <p>Don't have an account? <a href="C:\Users\Justine\Desktop\New folder\sign_up.html" class="sign-up">Sign up</a>
+            </p>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+    </body>
+    
+    </html>
